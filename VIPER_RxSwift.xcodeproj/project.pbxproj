@@ -17,14 +17,17 @@
 		2918F03325F70F4F006779BD /* VIPER_RxSwiftTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2918F03225F70F4F006779BD /* VIPER_RxSwiftTests.swift */; };
 		2918F03E25F70F4F006779BD /* VIPER_RxSwiftUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2918F03D25F70F4F006779BD /* VIPER_RxSwiftUITests.swift */; };
 		2918F05925F73582006779BD /* ListInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2918F05825F73582006779BD /* ListInteractor.swift */; };
-		2918F06925F7461F006779BD /* Moya in Frameworks */ = {isa = PBXBuildFile; productRef = 2918F06825F7461F006779BD /* Moya */; };
-		2918F06B25F7461F006779BD /* ReactiveMoya in Frameworks */ = {isa = PBXBuildFile; productRef = 2918F06A25F7461F006779BD /* ReactiveMoya */; };
-		2918F06D25F7461F006779BD /* RxMoya in Frameworks */ = {isa = PBXBuildFile; productRef = 2918F06C25F7461F006779BD /* RxMoya */; };
 		2918F06F25F74664006779BD /* GitHubApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2918F06E25F74664006779BD /* GitHubApiService.swift */; };
 		2918F07225F749D5006779BD /* GitHubRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2918F07125F749D5006779BD /* GitHubRepository.swift */; };
 		2918F07525F7609D006779BD /* ListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2918F07425F7609D006779BD /* ListPresenter.swift */; };
 		2918F07825F76331006779BD /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2918F07725F76331006779BD /* ListViewController.swift */; };
 		2918F07B25F76FDF006779BD /* ListPresenterOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2918F07A25F76FDF006779BD /* ListPresenterOutput.swift */; };
+		2918F07D25F7732F006779BD /* ListViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2918F07C25F7732F006779BD /* ListViewController.storyboard */; };
+		2918F08025F7756B006779BD /* ListModuleRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2918F07F25F7756B006779BD /* ListModuleRouter.swift */; };
+		2918F08525F778FF006779BD /* extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2918F08425F778FF006779BD /* extensions.swift */; };
+		296E314A25F85D0500C03995 /* Moya in Frameworks */ = {isa = PBXBuildFile; productRef = 296E314925F85D0500C03995 /* Moya */; };
+		296E314C25F85D0500C03995 /* ReactiveMoya in Frameworks */ = {isa = PBXBuildFile; productRef = 296E314B25F85D0500C03995 /* ReactiveMoya */; };
+		296E314E25F85D0500C03995 /* RxMoya in Frameworks */ = {isa = PBXBuildFile; productRef = 296E314D25F85D0500C03995 /* RxMoya */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,6 +69,9 @@
 		2918F07425F7609D006779BD /* ListPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListPresenter.swift; sourceTree = "<group>"; };
 		2918F07725F76331006779BD /* ListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
 		2918F07A25F76FDF006779BD /* ListPresenterOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListPresenterOutput.swift; sourceTree = "<group>"; };
+		2918F07C25F7732F006779BD /* ListViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ListViewController.storyboard; sourceTree = "<group>"; };
+		2918F07F25F7756B006779BD /* ListModuleRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListModuleRouter.swift; sourceTree = "<group>"; };
+		2918F08425F778FF006779BD /* extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = extensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,9 +79,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2918F06D25F7461F006779BD /* RxMoya in Frameworks */,
-				2918F06925F7461F006779BD /* Moya in Frameworks */,
-				2918F06B25F7461F006779BD /* ReactiveMoya in Frameworks */,
+				296E314E25F85D0500C03995 /* RxMoya in Frameworks */,
+				296E314A25F85D0500C03995 /* Moya in Frameworks */,
+				296E314C25F85D0500C03995 /* ReactiveMoya in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -119,6 +125,7 @@
 		2918F01725F70F4C006779BD /* VIPER_RxSwift */ = {
 			isa = PBXGroup;
 			children = (
+				2918F08325F778E8006779BD /* Util */,
 				2918F05525F73564006779BD /* Module */,
 				2918F04B25F70F61006779BD /* Network */,
 				2918F01825F70F4C006779BD /* AppDelegate.swift */,
@@ -178,6 +185,7 @@
 		2918F05625F73569006779BD /* List */ = {
 			isa = PBXGroup;
 			children = (
+				2918F07E25F7753A006779BD /* Router */,
 				2918F07625F76303006779BD /* View */,
 				2918F07325F76068006779BD /* Presenter */,
 				2918F07025F749C9006779BD /* Entity */,
@@ -214,7 +222,9 @@
 		2918F07625F76303006779BD /* View */ = {
 			isa = PBXGroup;
 			children = (
+				2918F08625F79C64006779BD /* New Group */,
 				2918F07725F76331006779BD /* ListViewController.swift */,
+				2918F07C25F7732F006779BD /* ListViewController.storyboard */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -225,6 +235,29 @@
 				2918F07A25F76FDF006779BD /* ListPresenterOutput.swift */,
 			);
 			path = Output;
+			sourceTree = "<group>";
+		};
+		2918F07E25F7753A006779BD /* Router */ = {
+			isa = PBXGroup;
+			children = (
+				2918F07F25F7756B006779BD /* ListModuleRouter.swift */,
+			);
+			path = Router;
+			sourceTree = "<group>";
+		};
+		2918F08325F778E8006779BD /* Util */ = {
+			isa = PBXGroup;
+			children = (
+				2918F08425F778FF006779BD /* extensions.swift */,
+			);
+			path = Util;
+			sourceTree = "<group>";
+		};
+		2918F08625F79C64006779BD /* New Group */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "New Group";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -244,9 +277,9 @@
 			);
 			name = VIPER_RxSwift;
 			packageProductDependencies = (
-				2918F06825F7461F006779BD /* Moya */,
-				2918F06A25F7461F006779BD /* ReactiveMoya */,
-				2918F06C25F7461F006779BD /* RxMoya */,
+				296E314925F85D0500C03995 /* Moya */,
+				296E314B25F85D0500C03995 /* ReactiveMoya */,
+				296E314D25F85D0500C03995 /* RxMoya */,
 			);
 			productName = VIPER_RxSwift;
 			productReference = 2918F01525F70F4C006779BD /* VIPER_RxSwift.app */;
@@ -320,7 +353,7 @@
 			);
 			mainGroup = 2918F00C25F70F4C006779BD;
 			packageReferences = (
-				2918F06725F7461F006779BD /* XCRemoteSwiftPackageReference "Moya" */,
+				296E314825F85D0500C03995 /* XCRemoteSwiftPackageReference "Moya" */,
 			);
 			productRefGroup = 2918F01625F70F4C006779BD /* Products */;
 			projectDirPath = "";
@@ -341,6 +374,7 @@
 				2918F02825F70F4F006779BD /* LaunchScreen.storyboard in Resources */,
 				2918F02525F70F4F006779BD /* Assets.xcassets in Resources */,
 				2918F02025F70F4C006779BD /* Main.storyboard in Resources */,
+				2918F07D25F7732F006779BD /* ListViewController.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -371,10 +405,12 @@
 				2918F06F25F74664006779BD /* GitHubApiService.swift in Sources */,
 				2918F02325F70F4C006779BD /* VIPER_RxSwift.xcdatamodeld in Sources */,
 				2918F07825F76331006779BD /* ListViewController.swift in Sources */,
+				2918F08025F7756B006779BD /* ListModuleRouter.swift in Sources */,
 				2918F07225F749D5006779BD /* GitHubRepository.swift in Sources */,
 				2918F05925F73582006779BD /* ListInteractor.swift in Sources */,
 				2918F01B25F70F4C006779BD /* SceneDelegate.swift in Sources */,
 				2918F07B25F76FDF006779BD /* ListPresenterOutput.swift in Sources */,
+				2918F08525F778FF006779BD /* extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -709,7 +745,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		2918F06725F7461F006779BD /* XCRemoteSwiftPackageReference "Moya" */ = {
+		296E314825F85D0500C03995 /* XCRemoteSwiftPackageReference "Moya" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Moya/Moya";
 			requirement = {
@@ -720,19 +756,19 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		2918F06825F7461F006779BD /* Moya */ = {
+		296E314925F85D0500C03995 /* Moya */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 2918F06725F7461F006779BD /* XCRemoteSwiftPackageReference "Moya" */;
+			package = 296E314825F85D0500C03995 /* XCRemoteSwiftPackageReference "Moya" */;
 			productName = Moya;
 		};
-		2918F06A25F7461F006779BD /* ReactiveMoya */ = {
+		296E314B25F85D0500C03995 /* ReactiveMoya */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 2918F06725F7461F006779BD /* XCRemoteSwiftPackageReference "Moya" */;
+			package = 296E314825F85D0500C03995 /* XCRemoteSwiftPackageReference "Moya" */;
 			productName = ReactiveMoya;
 		};
-		2918F06C25F7461F006779BD /* RxMoya */ = {
+		296E314D25F85D0500C03995 /* RxMoya */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 2918F06725F7461F006779BD /* XCRemoteSwiftPackageReference "Moya" */;
+			package = 296E314825F85D0500C03995 /* XCRemoteSwiftPackageReference "Moya" */;
 			productName = RxMoya;
 		};
 /* End XCSwiftPackageProductDependency section */
