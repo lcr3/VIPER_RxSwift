@@ -12,7 +12,7 @@ struct SearchRepositoriesResponse: Decodable {
     let items: [GitHubRepository]
 }
 
-struct GitHubRepository: Decodable {
+struct GitHubRepository: Decodable, Hashable {
     let id: Int
     let fullName: String
     let description: String
