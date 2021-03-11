@@ -21,62 +21,54 @@ class ListViewController: UIViewController, StoryboardInstantiatable {
     static var instantiateType: StoryboardInstantiateType { .initial }
 
     var presenter: ListPresenterProtocol!
+    private let disposeBag = DisposeBag()
 
     @IBOutlet weak var textField: UITextField!
-    @IBOutlet weak var collectionView: UICollectionView!
-    private lazy var dataSource: UICollectionViewDiffableDataSource<ListSection, GitHubRepository> = {
-        let dataSouce = UICollectionViewDiffableDataSource<ListSection, GitHubRepository>(collectionView: collectionView) { collectionView, indexPath, item -> UICollectionViewCell? in
-            let cell = UICollectionViewCell()
-            cell.backgroundColor = .red
-            return cell
-        }
-        return dataSouce
-    }()
+    @IBOutlet weak var tableView: UITableView!
 
     var repositoryArray: [GitHubRepository] = [] {
         didSet{
-            self.collectionView.reloadData()
+            self.tableView.reloadData()
         }
     }
 
-
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.delegate = self
+        tableView.dataSource = self
+        presenter.outputs.gitHubRepositories.asObservable()
+            .observeOn(MainScheduler.asyncInstance)
+            .subscribe { _ in
+                print("リロード")
+                self.tableView.reloadData()
+            }.disposed(by: disposeBag)
 
-        collectionView.dataSource = dataSource
-        collectionView.delegate = self
-        collectionView.collectionViewLayout = UICollectionViewFlowLayout()
-//        presenter.searchRepositories()
     }
-    
 
     @IBAction func buttonTouched(_ sender: Any) {
     }
 }
 
-extension ListViewController: UICollectionViewDelegate {
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print("touched")
-    }
-}
-
-extension ListViewController: UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        return UICollectionViewCell()
+extension ListViewController: UITableViewDelegate, UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
     }
 
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return repositoryArray.count
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return presenter.outputs.gitHubRepositories.value.count
     }
 
-}
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let repo = presenter.outputs.gitHubRepositories.value[indexPath.row]
+        let cell = UITableViewCell(style: .subtitle, reuseIdentifier: "subtitle")
+        cell.textLabel?.text = "\(repo.fullName)"
+        cell.detailTextLabel?.textColor = UIColor.lightGray
+        cell.detailTextLabel?.text = "\(repo.description)"
+        return cell
+    }
 
-
-extension ListViewController: ListViewProtocol {
-    func handlePresenterOutput(_ output: ListPresenterOutput) {
-//        switch output {
-//        case .showRepositories(let repositories):
-//            self.pokemonArray = pokemonsArray
-//        }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        presenter.inputs.didSelectRowTrigger.onNext(indexPath)
     }
 }
