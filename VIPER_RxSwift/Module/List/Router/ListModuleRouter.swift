@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 protocol ListRouterProtocol: AnyObject {
-    func showDetail(id: String)
+    func showDetail(repo: GitHubRepository)
 }
 
 final class ListRouter {
@@ -25,14 +25,16 @@ final class ListRouter {
         let router = ListRouter(viewController: view)
         let interector = ListInteractor()
         let presenter = ListPresenter(view: view,
-                                          router: router,
-                                          interactor: interector)
+                                      router: router,
+                                      interactor: interector)
         view.presenter = presenter
         return view
     }
 }
 
 extension ListRouter: ListRouterProtocol {
-    func showDetail(id: String) {
+    func showDetail(repo: GitHubRepository) {
+        let detailView = DetailRouter.assembleModules(repo: repo)
+        viewController.navigationController?.pushViewController(detailView, animated: true)
     }
 }
