@@ -8,6 +8,7 @@
 
 import Foundation
 import RxSwift
+import RxCocoa
 import RxRelay
 
 protocol ListPresenterProtocol: AnyObject {
@@ -17,7 +18,8 @@ protocol ListPresenterProtocol: AnyObject {
 
 protocol ListPresenterInputs {
     var viewDidLoadTrigger: PublishSubject<Void> { get }
-    var didSelectRowTrigger: PublishSubject<IndexPath>  { get }
+    var didSelectRowTrigger: PublishSubject<IndexPath> { get }
+    var inputSearchTrigger: PublishSubject<String> { get }
 }
 
 protocol ListPresenterOutputs {
@@ -36,6 +38,7 @@ final class ListPresenter {
     // Inputs
     let viewDidLoadTrigger = PublishSubject<Void>()
     let didSelectRowTrigger = PublishSubject<IndexPath>()
+    let inputSearchTrigger = PublishSubject<String>()
 
     // Outputs
     let gitHubRepositories = BehaviorRelay<[GitHubRepository]>(value: [])
@@ -45,13 +48,32 @@ final class ListPresenter {
         self.router = router
         self.interactor = interactor
 
-        self.interactor.fetch()
+        interactor.fetch()
             .subscribe { repository in
                 self.gitHubRepositories.accept(repository.items)
             } onError: { error in
                 // errorhandler
             }.disposed(by: disposeBag)
 
+        didSelectRowTrigger.asObservable()
+             .observeOn(MainScheduler.asyncInstance)
+             .bind(onNext: transitionDetail)
+             .disposed(by: disposeBag)
+
+        inputSearchTrigger.asObservable()
+            .subscribe { st in
+                print("next: \(st)")
+
+            } onError: { error in
+                print("\(error)")
+            } onCompleted: {
+                print("onComplted")
+            }.disposed(by: disposeBag)
+    }
+
+    private func transitionDetail(indexPath: IndexPath) {
+        let repo = gitHubRepositories.value[indexPath.row]
+        router.showDetail(repo: repo)
     }
 }
 
@@ -61,7 +83,6 @@ extension ListPresenter: ListPresenterProtocol {
 }
 
 extension ListPresenter: ListPresenterInputs {
-
 }
 
 extension ListPresenter: ListPresenterOutputs {

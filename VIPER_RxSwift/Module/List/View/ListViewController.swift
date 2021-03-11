@@ -7,14 +7,10 @@
 //
 
 import RxSwift
+import RxCocoa
 import UIKit
 
 protocol ListViewProtocol: AnyObject {
-    func handlePresenterOutput(_ output: ListPresenterOutput)
-}
-
-enum ListSection: Int, CaseIterable {
-    case list
 }
 
 class ListViewController: UIViewController, StoryboardInstantiatable {
@@ -43,6 +39,12 @@ class ListViewController: UIViewController, StoryboardInstantiatable {
                 self.tableView.reloadData()
             }.disposed(by: disposeBag)
 
+//        textField.rx.text.orEmpty
+//            .filter {$0.count >= 1}
+//            .debounce(0.5, scheduler: MainScheduler.instance)
+//            .asDriver(onErrorDriveWith: Driver.empty())
+//            .drive()
+//            .disposed(by: disposeBag)
     }
 
     @IBAction func buttonTouched(_ sender: Any) {
@@ -71,4 +73,7 @@ extension ListViewController: UITableViewDelegate, UITableViewDataSource {
         tableView.deselectRow(at: indexPath, animated: true)
         presenter.inputs.didSelectRowTrigger.onNext(indexPath)
     }
+}
+
+extension ListViewController: ListViewProtocol {
 }

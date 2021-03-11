@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -25,6 +25,10 @@
 		2918F07D25F7732F006779BD /* ListViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2918F07C25F7732F006779BD /* ListViewController.storyboard */; };
 		2918F08025F7756B006779BD /* ListModuleRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2918F07F25F7756B006779BD /* ListModuleRouter.swift */; };
 		2918F08525F778FF006779BD /* extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2918F08425F778FF006779BD /* extensions.swift */; };
+		2997598A25FA36B3009DD866 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2997598925FA36B3009DD866 /* DetailViewController.swift */; };
+		2997598C25FA36C5009DD866 /* DetailViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2997598B25FA36C5009DD866 /* DetailViewController.storyboard */; };
+		2997598E25FA3785009DD866 /* DetailRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2997598D25FA3785009DD866 /* DetailRouter.swift */; };
+		2997599125FA3810009DD866 /* DetailPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2997599025FA3810009DD866 /* DetailPresenter.swift */; };
 		A136E250CDB8138321F078AB /* Pods_VIPER_RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A8B577224043154FE678B2A /* Pods_VIPER_RxSwift.framework */; };
 		B56F395068656154FA42E473 /* Pods_VIPER_RxSwiftTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B7D5C7BF63C008E1ADAF5C6 /* Pods_VIPER_RxSwiftTests.framework */; };
 		B5AC5528D0A38C5DCC90B682 /* Pods_VIPER_RxSwift_VIPER_RxSwiftUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B0D9C83DCD7B61E5F300968 /* Pods_VIPER_RxSwift_VIPER_RxSwiftUITests.framework */; };
@@ -73,6 +77,10 @@
 		2918F07C25F7732F006779BD /* ListViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ListViewController.storyboard; sourceTree = "<group>"; };
 		2918F07F25F7756B006779BD /* ListModuleRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListModuleRouter.swift; sourceTree = "<group>"; };
 		2918F08425F778FF006779BD /* extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = extensions.swift; sourceTree = "<group>"; };
+		2997598925FA36B3009DD866 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		2997598B25FA36C5009DD866 /* DetailViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = DetailViewController.storyboard; sourceTree = "<group>"; };
+		2997598D25FA3785009DD866 /* DetailRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailRouter.swift; sourceTree = "<group>"; };
+		2997599025FA3810009DD866 /* DetailPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailPresenter.swift; sourceTree = "<group>"; };
 		2EF31C40A4BE5915D45A223C /* Pods-VIPER_RxSwift-VIPER_RxSwiftUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VIPER_RxSwift-VIPER_RxSwiftUITests.release.xcconfig"; path = "Target Support Files/Pods-VIPER_RxSwift-VIPER_RxSwiftUITests/Pods-VIPER_RxSwift-VIPER_RxSwiftUITests.release.xcconfig"; sourceTree = "<group>"; };
 		4B0D9C83DCD7B61E5F300968 /* Pods_VIPER_RxSwift_VIPER_RxSwiftUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_VIPER_RxSwift_VIPER_RxSwiftUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6A8B577224043154FE678B2A /* Pods_VIPER_RxSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_VIPER_RxSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -189,6 +197,7 @@
 			isa = PBXGroup;
 			children = (
 				2918F05625F73569006779BD /* List */,
+				2997598525FA3673009DD866 /* Detail */,
 			);
 			path = Module;
 			sourceTree = "<group>";
@@ -233,7 +242,6 @@
 		2918F07625F76303006779BD /* View */ = {
 			isa = PBXGroup;
 			children = (
-				2918F08625F79C64006779BD /* New Group */,
 				2918F07725F76331006779BD /* ListViewController.swift */,
 				2918F07C25F7732F006779BD /* ListViewController.storyboard */,
 			);
@@ -264,11 +272,39 @@
 			path = Util;
 			sourceTree = "<group>";
 		};
-		2918F08625F79C64006779BD /* New Group */ = {
+		2997598525FA3673009DD866 /* Detail */ = {
 			isa = PBXGroup;
 			children = (
+				2997598F25FA3807009DD866 /* Presenter */,
+				2997598725FA3695009DD866 /* View */,
+				2997598625FA368D009DD866 /* Router */,
 			);
-			path = "New Group";
+			path = Detail;
+			sourceTree = "<group>";
+		};
+		2997598625FA368D009DD866 /* Router */ = {
+			isa = PBXGroup;
+			children = (
+				2997598D25FA3785009DD866 /* DetailRouter.swift */,
+			);
+			path = Router;
+			sourceTree = "<group>";
+		};
+		2997598725FA3695009DD866 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				2997598925FA36B3009DD866 /* DetailViewController.swift */,
+				2997598B25FA36C5009DD866 /* DetailViewController.storyboard */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		2997598F25FA3807009DD866 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				2997599025FA3810009DD866 /* DetailPresenter.swift */,
+			);
+			path = Presenter;
 			sourceTree = "<group>";
 		};
 		97B483039E4D4D1C8C9B81C7 /* Pods */ = {
@@ -281,7 +317,6 @@
 				F61E09F86EF36004EEBA6CFE /* Pods-VIPER_RxSwiftTests.debug.xcconfig */,
 				FCCD68A06FA0F25403E54B5A /* Pods-VIPER_RxSwiftTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -405,6 +440,7 @@
 			files = (
 				2918F02825F70F4F006779BD /* LaunchScreen.storyboard in Resources */,
 				2918F02525F70F4F006779BD /* Assets.xcassets in Resources */,
+				2997598C25FA36C5009DD866 /* DetailViewController.storyboard in Resources */,
 				2918F02025F70F4C006779BD /* Main.storyboard in Resources */,
 				2918F07D25F7732F006779BD /* ListViewController.storyboard in Resources */,
 			);
@@ -534,12 +570,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2997598A25FA36B3009DD866 /* DetailViewController.swift in Sources */,
 				2918F01D25F70F4C006779BD /* ViewController.swift in Sources */,
 				2918F01925F70F4C006779BD /* AppDelegate.swift in Sources */,
 				2918F07525F7609D006779BD /* ListPresenter.swift in Sources */,
 				2918F06F25F74664006779BD /* GitHubApiService.swift in Sources */,
+				2997598E25FA3785009DD866 /* DetailRouter.swift in Sources */,
 				2918F02325F70F4C006779BD /* VIPER_RxSwift.xcdatamodeld in Sources */,
 				2918F07825F76331006779BD /* ListViewController.swift in Sources */,
+				2997599125FA3810009DD866 /* DetailPresenter.swift in Sources */,
 				2918F08025F7756B006779BD /* ListModuleRouter.swift in Sources */,
 				2918F07225F749D5006779BD /* GitHubRepository.swift in Sources */,
 				2918F05925F73582006779BD /* ListInteractor.swift in Sources */,
