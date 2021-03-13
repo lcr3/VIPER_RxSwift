@@ -22,32 +22,25 @@ class ListViewController: UIViewController, StoryboardInstantiatable {
     @IBOutlet weak var textField: UITextField!
     @IBOutlet weak var tableView: UITableView!
 
-    var repositoryArray: [GitHubRepository] = [] {
-        didSet{
-            self.tableView.reloadData()
-        }
-    }
-
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.delegate = self
         tableView.dataSource = self
+
+        // output通知を受け取る
         presenter.outputs.gitHubRepositories.asObservable()
             .observeOn(MainScheduler.asyncInstance)
             .subscribe { _ in
-                print("リロード")
                 self.tableView.reloadData()
             }.disposed(by: disposeBag)
 
-//        textField.rx.text.orEmpty
-//            .filter {$0.count >= 1}
-//            .debounce(0.5, scheduler: MainScheduler.instance)
-//            .asDriver(onErrorDriveWith: Driver.empty())
-//            .drive()
-//            .disposed(by: disposeBag)
-    }
-
-    @IBAction func buttonTouched(_ sender: Any) {
+        // textFieldの変更をpresenterにinputとして送る
+        textField.rx.text.orEmpty
+            .filter { $0.count >= 2 }
+            .debounce(DispatchTimeInterval.seconds(Int(0.5)), scheduler: MainScheduler.instance)
+            .subscribe { text in
+                self.presenter.inputs.inputSearchTrigger.onNext(text)
+            }.disposed(by: disposeBag)
     }
 }
 

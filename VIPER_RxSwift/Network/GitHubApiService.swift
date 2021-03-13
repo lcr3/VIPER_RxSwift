@@ -11,15 +11,16 @@ import Alamofire
 import Moya
 
 enum GitHubApiService {
-    case getSearch
+    case getSearch(query: String)
     case getDetail(id: String)
 }
 
 extension GitHubApiService: TargetType {
     var baseURL: URL {
         switch self {
-        case .getSearch:
-            return URL(string: "https://api.github.com/search/repositories?q=swift")!
+        case .getSearch(let query):
+            let q = query.isEmpty ? "swift": query
+            return URL(string: "https://api.github.com/search/repositories?q=\(q)&l=swift")!
         case .getDetail(let id):
             return URL(string: " add url \(id)")!
         }
@@ -49,7 +50,7 @@ extension GitHubApiService: TargetType {
     var parameters: [String : Any] {
         var parameters = [String:Any]()
         switch self {
-        case .getSearch:
+        case .getSearch(let query):
             return parameters
         case .getDetail(let id):
             return parameters

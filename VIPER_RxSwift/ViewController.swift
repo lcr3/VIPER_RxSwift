@@ -17,17 +17,6 @@ class ViewController: UIViewController {
     }
     @IBAction func searchButtonTouched(_ sender: Any) {
         let a = ListInteractor()
-        a.fetch().subscribe { repo in
-            print("success: \(repo.items.count)")
-
-        } onError: { error in
-            print("error: \(error)")
-        } onCompleted: {
-            print("complication")
-        } onDisposed: {
-            print("disposed")
-        }
-
     }
 }
 
