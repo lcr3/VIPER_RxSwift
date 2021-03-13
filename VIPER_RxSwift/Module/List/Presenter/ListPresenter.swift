@@ -26,7 +26,7 @@ protocol ListPresenterOutputs {
     var gitHubRepositories: BehaviorRelay<[GitHubRepository]> { get }
 }
 
-final class ListPresenter {
+final class ListPresenter: ListPresenterProtocol, ListPresenterInputs, ListPresenterOutputs {
     private let view: ListViewProtocol
     private let interactor: ListInteractorProtocol
     private let router: ListRouterProtocol
@@ -48,13 +48,6 @@ final class ListPresenter {
         self.router = router
         self.interactor = interactor
 
-        interactor.fetch()
-            .subscribe { repository in
-                self.gitHubRepositories.accept(repository.items)
-            } onError: { error in
-                // errorhandler
-            }.disposed(by: disposeBag)
-
         didSelectRowTrigger.asObservable()
              .observeOn(MainScheduler.asyncInstance)
              .bind(onNext: transitionDetail)
@@ -62,29 +55,34 @@ final class ListPresenter {
 
         inputSearchTrigger.asObservable()
             .subscribe { st in
-                print("next: \(st)")
-
+                print("search text: \(st)")
+                self.fetchList(text: st)
             } onError: { error in
                 print("\(error)")
-            } onCompleted: {
-                print("onComplted")
             }.disposed(by: disposeBag)
+
+        // firstRequest
+        fetchList(text: "")
+    }
+
+    private func fetchList(text: String) {
+        interactor.fetchList(query: text, page: 0)
+            .subscribeOn(MainScheduler.instance)
+            .subscribe { result in
+                switch result {
+                case let .success(response):
+                    self.gitHubRepositories.accept(response.items)
+                print(response)
+                case .failure:
+                    print("error")
+                }
+            } onError: { error in
+                // error handler
+            }
     }
 
     private func transitionDetail(indexPath: IndexPath) {
         let repo = gitHubRepositories.value[indexPath.row]
         router.showDetail(repo: repo)
     }
-}
-
-extension ListPresenter: ListPresenterProtocol {
-    func searchRepositories() {
-    }
-}
-
-extension ListPresenter: ListPresenterInputs {
-}
-
-extension ListPresenter: ListPresenterOutputs {
-
 }
